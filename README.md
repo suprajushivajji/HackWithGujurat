@@ -114,7 +114,7 @@ This project is licensed under the ISC License.
 
 ## Live Demo
 
-You can access the live demo of the project at [https://hack-with-gujurat.vercel.app/chat.html](https://hack-with-gujurat.vercel.app/chat.html).
+You can access the live demo of the project at [https://hack-with-gujurat.vercel.app/chat.html](https://hack-with-gujurat.vercel.app/).
 
 ---
 
