@@ -1,0 +1,257 @@
+<!-- chat/chat.html - Chat Interface -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - TechSynergy</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/chat.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="chat-page">
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-rocket" aria-hidden="true"></i>
+                <a href="../dashboard.html" style="text-decoration: none; color: inherit;">TechSynergy</a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <div class="search-container">
+                    <input type="text" id="globalSearch" placeholder="Search gigs, events, people..." class="search-input" aria-label="Global search">
+                    <i class="fas fa-search search-icon" aria-hidden="true"></i>
+                </div>
+                <a href="../dashboard.html" class="nav-link">Dashboard</a>
+                <a href="../freelancing/gigs.html" class="nav-link">Gigs</a>
+                <a href="../events/events.html" class="nav-link">Events</a>
+                <a href="../chat.html" class="nav-link active">Chat</a>
+                <div class="nav-user" id="nav-user">
+                    <div class="user-avatar" id="user-avatar" tabindex="0" aria-label="User menu">
+                        <i class="fas fa-user" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    <!-- Main Content -->
+    <main class="chat-main">
+        <div class="chat-container">
+            <!-- Sidebar -->
+            <aside class="chat-sidebar" id="chatSidebar">
+                <div class="sidebar-header">
+                    <h2><i class="fas fa-comments" aria-hidden="true"></i> Messages</h2>
+                    <div class="sidebar-actions">
+                        <button class="btn btn-primary btn-sm" onclick="showNewChatModal()" aria-label="Start new chat">
+                            <i class="fas fa-plus" aria-hidden="true"></i>
+                        </button>
+                        <button class="btn btn-outline btn-sm" onclick="showCreateGroupModal()" aria-label="Create group">
+                            <i class="fas fa-users" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="search-container">
+                    <input type="text" id="globalSearch" placeholder="Search Conversations..." class="search-input" aria-label="Global search">
+                    <i class="fas fa-search search-icon" aria-hidden="true"></i>
+                </div>
+
+                <div class="chat-tabs">
+                    <button class="tab-btn active" onclick="switchChatTab('all')" data-tab="all">All</button>
+                    <button class="tab-btn" onclick="switchChatTab('private')" data-tab="private">Private</button>
+                    <button class="tab-btn" onclick="switchChatTab('groups')" data-tab="groups">Groups</button>
+                </div>
+
+                <div class="conversations-list" id="conversationsList">
+                    <div class="loading-placeholder">
+                        <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                        <span>Loading conversations...</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Chat Area -->
+            <section class="chat-area" id="chatArea">
+                <div class="chat-welcome" id="chatWelcome">
+                    <div class="welcome-content">
+                        <i class="fas fa-comments welcome-icon" aria-hidden="true"></i>
+                        <h2>Welcome to TechSynergy Chat</h2>
+                        <p>Connect with the tech community. Start a conversation or join a group.</p>
+                        <div class="welcome-actions">
+                            <button class="btn btn-primary" onclick="showNewChatModal()">
+                                <i class="fas fa-user-plus" aria-hidden="true"></i>
+                                Start New Chat
+                            </button>
+                            <button class="btn btn-outline" onclick="showCreateGroupModal()">
+                                <i class="fas fa-users" aria-hidden="true"></i>
+                                Create Group
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-window hidden" id="chatWindow">
+                    <!-- Chat Header -->
+                    <div class="chat-header" id="chatHeader">
+                        <div class="chat-info">
+                            <div class="chat-avatar" id="chatAvatar">
+                                <i class="fas fa-user" aria-hidden="true"></i>
+                            </div>
+                            <div class="chat-details">
+                                <h3 id="chatTitle">Chat Title</h3>
+                                <span class="chat-status" id="chatStatus">Online</span>
+                            </div>
+                        </div>
+                        <div class="chat-actions">
+                            <button class="btn btn-ghost btn-sm" onclick="toggleChatInfo()" aria-label="Chat info">
+                                <i class="fas fa-info-circle" aria-hidden="true"></i>
+                            </button>
+                            <button class="btn btn-ghost btn-sm" onclick="closeChatWindow()" aria-label="Close chat">
+                                <i class="fas fa-times" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Messages Area -->
+                    <div class="messages-container" id="messagesContainer">
+                        <div class="messages-list" id="messagesList">
+                            <!-- Messages will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Message Input -->
+                    <div class="message-input-container" id="messageInputContainer">
+                        <div class="message-input-area">
+                            <button class="attachment-btn" onclick="toggleAttachmentMenu()" aria-label="Attach file">
+                                <i class="fas fa-paperclip" aria-hidden="true"></i>
+                            </button>
+                            <div class="input-wrapper">
+                                <textarea id="messageInput" placeholder="Type a message..." rows="1" class="message-input"></textarea>
+                                <button class="emoji-btn" onclick="toggleEmojiPicker()" aria-label="Add emoji">
+                                    <i class="fas fa-smile" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <button class="send-btn" onclick="sendMessage()" id="sendBtn" aria-label="Send message">
+                                <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Attachment Menu -->
+                        <div class="attachment-menu hidden" id="attachmentMenu">
+                            <button class="attachment-option" onclick="selectImage()">
+                                <i class="fas fa-image" aria-hidden="true"></i>
+                                <span>Image</span>
+                            </button>
+                            <button class="attachment-option" onclick="selectFile()">
+                                <i class="fas fa-file" aria-hidden="true"></i>
+                                <span>File</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chat Info Panel -->
+            <aside class="chat-info-panel hidden" id="chatInfoPanel">
+                <div class="info-header">
+                    <h3>Chat Information</h3>
+                    <button class="btn btn-ghost btn-sm" onclick="toggleChatInfo()">
+                        <i class="fas fa-times" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="info-content" id="chatInfoContent">
+                    <!-- Chat info will be loaded here -->
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- New Chat Modal -->
+    <div class="modal" id="newChatModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-user-plus" aria-hidden="true"></i> Start New Chat</h3>
+                <button class="modal-close" onclick="hideNewChatModal()" aria-label="Close modal">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="user-search">
+                    <input type="text" id="userSearchInput" placeholder="Search users..." class="search-input">
+                    <i class="fas fa-search search-icon" aria-hidden="true"></i>
+                </div>
+                <div class="users-list" id="searchUsersList">
+                    <div class="loading-placeholder">
+                        <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                        <span>Search for users...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Group Modal -->
+    <div class="modal" id="createGroupModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-users" aria-hidden="true"></i> Create Group</h3>
+                <button class="modal-close" onclick="hideCreateGroupModal()" aria-label="Close modal">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <form class="modal-body" id="createGroupForm">
+                <div class="form-group">
+                    <label for="groupName">Group Name</label>
+                    <input type="text" id="groupName" required placeholder="e.g., React Developers" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="groupDescription">Description (Optional)</label>
+                    <textarea id="groupDescription" rows="3" placeholder="What's this group about?" class="form-textarea"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="groupPublic">
+                        <span class="checkmark"></span>
+                        <span>Make this group public</span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>Add Members</label>
+                    <div class="member-search">
+                        <input type="text" id="memberSearchInput" placeholder="Search users to add..." class="search-input">
+                        <i class="fas fa-search search-icon" aria-hidden="true"></i>
+                    </div>
+                    <div class="selected-members" id="selectedMembers">
+                        <!-- Selected members will appear here -->
+                    </div>
+                    <div class="member-suggestions" id="memberSuggestions">
+                        <!-- Member suggestions will appear here -->
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="hideCreateGroupModal()">Cancel</button>
+                <button type="submit" form="createGroupForm" class="btn btn-primary">
+                    <i class="fas fa-users" aria-hidden="true"></i>
+                    Create Group
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden file inputs -->
+    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+    <input type="file" id="fileInput" style="display: none;">
+
+    <!-- Scripts -->
+    <script src="../js/app.js"></script>
+    <script src="../js/chat.js"></script>
+</body>
+</html>
+

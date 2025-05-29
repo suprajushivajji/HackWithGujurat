@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancing Gigs - TechSynergy</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/gigs.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="gigs-page">
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-rocket" aria-hidden="true"></i>
+                <a href="../dashboard.html" style="text-decoration: none; color: inherit;">TechSynergy</a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <div class="search-container">
+                    <input type="text" id="globalSearch" placeholder="Search gigs, events, people..." class="search-input" aria-label="Global search">
+                    <i class="fas fa-search search-icon" aria-hidden="true"></i>
+                </div>
+                <a href="../dashboard.html" class="nav-link">Dashboard</a>
+                <a href="../freelancing/gigs.html" class="nav-link active">Gigs</a>
+                <a href="../events/events.html" class="nav-link">Events</a>
+                <a href="../chat.html" class="nav-link">Chat</a>
+                <div class="nav-user" id="nav-user">
+                    <div class="user-avatar" id="user-avatar" tabindex="0" aria-label="User menu">
+                        <i class="fas fa-user" aria-hidden="true"></i>
+                    </div>
+                    <div class="user-dropdown" id="user-dropdown" role="menu">
+                        <a href="../profile.html" role="menuitem">Profile</a>
+                        <a href="../freelancing/proposals.html" role="menuitem">Proposals</a>
+                        <a href="../index.html" role="menuitem">Logout</a>
+                    </div>
+                </div>
+            </div>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+
+    <!-- Main Content -->
+    <main class="gigs-main" id="main-content">
+        <div class="container">
+            <!-- Header Section -->
+            <section class="gigs-header">
+                <div class="header-content">
+                    <h1>
+                        <i class="fas fa-briefcase" aria-hidden="true"></i>
+                        Freelancing Gigs
+                    </h1>
+                    <p>Find your next project or post a gig to find talented freelancers</p>
+                    <div class="header-stats" id="headerStats">
+                        <div class="stat-item">
+                            <span class="stat-number" id="totalGigs">0</span>
+                            <span class="stat-label">Active Gigs</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="totalFreelancers">0</span>
+                            <span class="stat-label">Freelancers</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="avgBudget">$0</span>
+                            <span class="stat-label">Avg Budget</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="showCreateGigModal()" id="postGigBtn">
+                        <i class="fas fa-plus" aria-hidden="true"></i>
+                        <span>Post a Gig</span>
+                    </button>
+                    <button class="btn btn-outline" onclick="toggleMyGigs()" id="myGigsBtn">
+                        <i class="fas fa-user" aria-hidden="true"></i>
+                        <span>My Gigs</span>
+                    </button>
+                    <button class="btn btn-ghost" onclick="toggleSavedGigs()" id="savedGigsBtn">
+                        <i class="fas fa-bookmark" aria-hidden="true"></i>
+                        <span>Saved</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Filters Section -->
+            <section class="filters-section" aria-label="Gig filters">
+                <div class="filters-container">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label for="categoryFilter">Category</label>
+                            <select id="categoryFilter" class="filter-select" aria-label="Filter by category">
+                                <option value="">All Categories</option>
+                                <option value="web-development">Web Development</option>
+                                <option value="mobile-development">Mobile Development</option>
+                                <option value="design">UI/UX Design</option>
+                                <option value="data-science">Data Science</option>
+                                <option value="ai-ml">AI/Machine Learning</option>
+                                <option value="blockchain">Blockchain</option>
+                                <option value="devops">DevOps</option>
+                                <option value="cybersecurity">Cybersecurity</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="budgetFilter">Budget Range</label>
+                            <select id="budgetFilter" class="filter-select" aria-label="Filter by budget">
+                                <option value="">Any Budget</option>
+                                <option value="0-500">Under $500</option>
+                                <option value="500-1000">$500 - $1,000</option>
+                                <option value="1000-2500">$1,000 - $2,500</option>
+                                <option value="2500-5000">$2,500 - $5,000</option>
+                                <option value="5000-10000">$5,000 - $10,000</option>
+                                <option value="10000-25000">$10,000 - $25,000</option>
+                                <option value="25000-50000">$25,000+</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="experienceFilter">Experience Level</label>
+                            <select id="experienceFilter" class="filter-select" aria-label="Filter by experience level">
+                                <option value="">Any Level</option>
+                                <option value="entry">Entry Level</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="expert">Expert</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="durationFilter">Project Duration</label>
+                            <select id="durationFilter" class="filter-select" aria-label="Filter by duration">
+                                <option value="">Any Duration</option>
+                                <option value="short">Less than 1 month</option>
+                                <option value="medium">1-3 months</option>
+                                <option value="long">3+ months</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label for="skillsFilter">Skills</label>
+                            <div class="skills-filter-container">
+                                <input type="text" id="skillsFilter" class="filter-input" placeholder="e.g., JavaScript, React, Python" aria-label="Filter by skills">
+                                <div class="popular-skills" id="popularSkills">
+                                    <!-- Popular skills will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter-group search-group">
+                            <label for="searchFilter">Search</label>
+                            <div class="search-input-container">
+                                <input type="text" id="searchFilter" class="filter-input search-input" placeholder="Search gigs..." aria-label="Search gigs">
+                                <button class="clear-search" id="clearSearch" onclick="clearSearch()" style="display: none;" aria-label="Clear search">
+                                    <i class="fas fa-times" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-actions">
+                        <button class="btn btn-outline btn-sm" onclick="clearAllFilters()" id="clearFiltersBtn">
+                            <i class="fas fa-times" aria-hidden="true"></i>
+                            Clear All Filters
+                        </button>
+                        <button class="btn btn-ghost btn-sm" onclick="saveFilterPreset()" id="saveFiltersBtn">
+                            <i class="fas fa-save" aria-hidden="true"></i>
+                            Save Filters
+                        </button>
+                        <div class="sort-options">
+                            <label for="sortBy">Sort by:</label>
+                            <select id="sortBy" class="filter-select" aria-label="Sort gigs">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="budget-high">Highest Budget</option>
+                                <option value="budget-low">Lowest Budget</option>
+                                <option value="deadline">Deadline</option>
+                                <option value="popularity">Most Popular</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Active Filters Display -->
+            <section class="active-filters" id="activeFilters" style="display: none;">
+                <div class="active-filters-container">
+                    <span class="active-filters-label">Active Filters:</span>
+                    <div class="active-filters-list" id="activeFiltersList">
+                        <!-- Active filters will be displayed here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section">
+                <div class="results-header">
+                    <div class="results-info">
+                        <span id="resultsCount">Loading gigs...</span>
+                        <span id="resultsTime" class="results-time"></span>
+                    </div>
+                    <div class="view-controls">
+                        <div class="view-toggle">
+                            <button class="view-btn active" onclick="toggleView('grid')" id="gridViewBtn" aria-label="Grid view" title="Grid view">
+                                <i class="fas fa-th-large" aria-hidden="true"></i>
+                            </button>
+                            <button class="view-btn" onclick="toggleView('list')" id="listViewBtn" aria-label="List view" title="List view">
+                                <i class="fas fa-list" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div class="results-per-page">
+                            <label for="resultsPerPage">Show:</label>
+                            <select id="resultsPerPage" class="filter-select" onchange="changeResultsPerPage()">
+                                <option value="12">12 per page</option>
+                                <option value="24">24 per page</option>
+                                <option value="48">48 per page</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gigs List -->
+            <section class="gigs-list" aria-label="Gigs listing">
+                <div class="gigs-container grid-view" id="gigsContainer">
+                    <!-- Loading state -->
+                    <div class="loading-placeholder" id="loadingPlaceholder">
+                        <div class="loading-spinner">
+                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                            <span>Loading awesome gigs...</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="pagination-container" id="paginationContainer">
+                    <div class="pagination" id="pagination">
+                        <!-- Pagination will be loaded here -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Create Gig Modal -->
+    <div class="modal" id="createGigModal" role="dialog" aria-labelledby="create-gig-title" aria-hidden="true">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2 id="create-gig-title">
+                    <i class="fas fa-plus" aria-hidden="true"></i>
+                    Post a New Gig
+                </h2>
+                <button class="modal-close" onclick="hideCreateGigModal()" aria-label="Close modal">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <form class="modal-body" id="createGigForm" novalidate>
+                <div class="form-step active" data-step="1">
+                    <h3>Basic Information</h3>
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="gigTitle">Gig Title *</label>
+                            <input type="text" id="gigTitle" name="title" required maxlength="100" 
+                                   placeholder="e.g., Build a React E-commerce Website" 
+                                   class="form-input" aria-describedby="title-help">
+                            <small id="title-help" class="form-help">Be specific and descriptive (max 100 characters)</small>
+                            <div class="error-message" id="title-error"></div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="gigDescription">Project Description *</label>
+                            <textarea id="gigDescription" name="description" required rows="6" 
+                                      placeholder="Describe your project in detail... Include requirements, deliverables, timeline, and any specific technologies you prefer."
+                                      class="form-textarea" aria-describedby="description-help"></textarea>
+                            <small id="description-help" class="form-help">Provide clear details to attract the right freelancers (min 50 characters)</small>
+                            <div class="error-message" id="description-error"></div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gigCategory">Category *</label>
+                            <select id="gigCategory" name="category" required class="form-select" aria-describedby="category-help">
+                                <option value="">Select Category</option>
+                                <option value="web-development">Web Development</option>
+                                <option value="mobile-development">Mobile Development</option>
+                                <option value="design">UI/UX Design</option>
+                                <option value="data-science">Data Science</option>
+                                <option value="ai-ml">AI/Machine Learning</option>
+                                <option value="blockchain">Blockchain</option>
+                                <option value="devops">DevOps</option>
+                                <option value="cybersecurity">Cybersecurity</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <small id="category-help" class="form-help">Choose the most relevant category</small>
+                            <div class="error-message" id="category-error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="experienceLevel">Experience Level *</label>
+                            <select id="experienceLevel" name="experienceLevel" required class="form-select">
+                                <option value="">Select Level</option>
+                                <option value="entry">Entry Level</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="expert">Expert</option>
+                            </select>
+                            <div class="error-message" id="experience-error"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-step" data-step="2">
+                    <h3>Budget & Timeline</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gigBudgetMin">Minimum Budget ($) *</label>
+                            <input type="number" id="gigBudgetMin" name="budgetMin" required min="1" 
+                                   placeholder="500" class="form-input" aria-describedby="budget-help">
+                            <div class="error-message" id="budget-min-error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="gigBudgetMax">Maximum Budget ($) *</label>
+                            <input type="number" id="gigBudgetMax" name="budgetMax" required min="1" 
+                                   placeholder="2000" class="form-input">
+                            <div class="error-message" id="budget-max-error"></div>
+                        </div>
+                    </div>
+                    <small id="budget-help" class="form-help">Set a realistic budget range to attract quality proposals</small>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gigDeadline">Project Deadline *</label>
+                            <input type="date" id="gigDeadline" name="deadline" required class="form-input" aria-describedby="deadline-help">
+                            <small id="deadline-help" class="form-help">When do you need this completed?</small>
+                            <div class="error-message" id="deadline-error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="gigDuration">Estimated Duration</label>
+                            <select id="gigDuration" name="duration" class="form-select">
+                                <option value="">Select Duration</option>
+                                <option value="short">Less than 1 month</option>
+                                <option value="medium">1-3 months</option>
+                                <option value="long">3+ months</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-step" data-step="3">
+                    <h3>Skills & Requirements</h3>
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="gigSkillInput">Required Skills *</label>
+                            <div class="skills-input">
+                                <input type="text" id="gigSkillInput" placeholder="Type a skill and press Enter" 
+                                       class="form-input" aria-describedby="skills-help">
+                                <div class="skills-tags" id="gigSkillsTags" role="list" aria-label="Selected skills">
+                                    <!-- Selected skills will appear here -->
+                                </div>
+                            </div>
+                            <small id="skills-help" class="form-help">Add skills that freelancers need to complete this gig (minimum 1 skill)</small>
+                            <div class="popular-skills-suggestions" id="popularSkillsSuggestions">
+                                <!-- Popular skills suggestions will appear here -->
+                            </div>
+                            <div class="error-message" id="skills-error"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="gigRequirements">Additional Requirements</label>
+                            <textarea id="gigRequirements" name="requirements" rows="4" 
+                                      placeholder="Any specific requirements, qualifications, or preferences..."
+                                      class="form-textarea"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-step" data-step="4">
+                    <h3>Additional Options</h3>
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="gigUrgent" name="isUrgent">
+                                    <span class="checkmark"></span>
+                                    <span>This is an urgent project</span>
+                                </label>
+                                <small class="form-help">Urgent projects get priority in search results</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="gigRemote" name="isRemote" checked>
+                                    <span class="checkmark"></span>
+                                    <span>Remote work allowed</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="gigNDA" name="requiresNDA">
+                                    <span class="checkmark"></span>
+                                    <span>Requires NDA (Non-Disclosure Agreement)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+            <div class="modal-footer">
+                <div class="form-navigation">
+                    <button type="button" class="btn btn-outline" id="prevStepBtn" onclick="prevStep()" style="display: none;">
+                        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                        Previous
+                    </button>
+                    <div class="step-indicator">
+                        <span class="step-dot active" data-step="1"></span>
+                        <span class="step-dot" data-step="2"></span>
+                        <span class="step-dot" data-step="3"></span>
+                        <span class="step-dot" data-step="4"></span>
+                    </div>
+                    <button type="button" class="btn btn-primary" id="nextStepBtn" onclick="nextStep()">
+                        Next
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                    <button type="submit" form="createGigForm" class="btn btn-primary" id="submitGigBtn" style="display: none;">
+                        <i class="fas fa-plus" aria-hidden="true"></i>
+                        Post Gig
+                    </button>
+                </div>
+                <button type="button" class="btn btn-ghost" onclick="hideCreateGigModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gig Details Modal -->
+    <div class="modal" id="gigDetailsModal" role="dialog" aria-labelledby="gig-details-title" aria-hidden="true">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2 id="gig-details-title">Gig Details</h2>
+                <button class="modal-close" onclick="closeGigDetailsModal()" aria-label="Close modal">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="gigDetailsContent">
+                <!-- Gig details will be loaded here -->
+            </div>
+            <div class="modal-footer" id="gigDetailsFooter">
+                <!-- Action buttons will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Proposal Modal -->
+    <div class="modal" id="proposalModal" role="dialog" aria-labelledby="proposal-title" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="proposal-title">Submit Proposal</h2>
+                <button class="modal-close" onclick="closeProposalModal()" aria-label="Close modal">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <form class="modal-body" id="proposalForm" novalidate>
+                <div class="form-group">
+                    <label for="proposalBudget">Your Proposed Budget ($) *</label>
+                    <input type="number" id="proposalBudget" required min="1" class="form-input" 
+                           placeholder="Enter your budget">
+                    <div class="error-message" id="proposal-budget-error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="proposalDuration">Estimated Delivery Time *</label>
+                    <input type="text" id="proposalDuration" required class="form-input" 
+                           placeholder="e.g., 2 weeks, 1 month">
+                    <div class="error-message" id="proposal-duration-error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="proposalCoverLetter">Cover Letter *</label>
+                    <textarea id="proposalCoverLetter" required rows="6" class="form-textarea"
+                              placeholder="Explain why you're the right fit for this project..."></textarea>
+                    <div class="error-message" id="proposal-cover-error"></div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeProposalModal()">Cancel</button>
+                <button type="submit" form="proposalForm" class="btn btn-primary">
+                    <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                    Submit Proposal
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true">
+        <!-- Toast notifications will appear here -->
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/gigs.js"></script>
+</body>
+</html>

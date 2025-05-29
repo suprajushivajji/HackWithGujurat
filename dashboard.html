@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - TechSynergy</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body class="dashboard-page">
+
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-rocket" aria-hidden="true"></i>
+                <a href="dashboard.html" style="text-decoration: none; color: inherit;">TechSynergy</a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <div class="search-container">
+                    <input type="text" id="globalSearch" placeholder="Search gigs, events, people..." class="search-input" aria-label="Global search">
+                    <i class="fas fa-search search-icon" aria-hidden="true"></i>
+                </div>
+                <a href="dashboard.html" class="nav-link active">Dashboard</a>
+                <a href="freelancing/gigs.html" class="nav-link">Gigs</a>
+                <a href="events/events.html" class="nav-link">Events</a>
+                <a href="chat.html" class="nav-link">Chat</a>
+                <div class="nav-user" id="nav-user">
+                    <div class="user-avatar" id="user-avatar" tabindex="0" aria-label="User menu">
+                        <i class="fas fa-user" aria-hidden="true"></i>
+                    </div>
+                    <div class="user-dropdown" id="user-dropdown" role="menu">
+                        <a href="../profile.html" role="menuitem">Profile</a>
+                        <a href="../freelancing/proposals.html" role="menuitem">Proposals</a>
+                        <a href="../index.html" role="menuitem">Logout</a>
+                    </div>
+                </div>
+            </div>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="dashboard-main" id="main-content">
+        <div class="container">
+            <!-- Welcome Section -->
+            <section class="welcome-section" aria-labelledby="welcome-title">
+                <div class="welcome-card">
+                    <div class="welcome-content">
+                        <h1 id="welcome-title" class="welcome-message">Welcome back!</h1>
+                        <p class="welcome-subtext">Here's what's happening in your tech world</p>
+                    </div>
+                    <div class="quick-stats">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-briefcase" aria-hidden="true"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-number" id="activeGigs" aria-label="Active gigs count">0</span>
+                                <span class="stat-label">Active Gigs</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar" aria-hidden="true"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-number" id="upcomingEvents"
+                                    aria-label="Upcoming events count">0</span>
+                                <span class="stat-label">Upcoming Events</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-trophy" aria-hidden="true"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-number" id="userRank" aria-label="Leaderboard rank">-</span>
+                                <span class="stat-label">Leaderboard Rank</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-number" id="activityScore" aria-label="Activity score">0</span>
+                                <span class="stat-label">Activity Score</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Actions -->
+            <section class="quick-actions" aria-labelledby="quick-actions-title">
+                <h2 id="quick-actions-title">
+                    <i class="fas fa-bolt" aria-hidden="true"></i>
+                    Quick Actions
+                </h2>
+                <div class="actions-grid" role="list">
+                    <a href="freelancing/gigs.html?action=create" class="action-card" role="listitem">
+                        <div class="action-icon">
+                            <i class="fas fa-plus" aria-hidden="true"></i>
+                        </div>
+                        <div class="action-content">
+                            <h3>Post a Gig</h3>
+                            <p>Find talented freelancers for your project</p>
+                        </div>
+                    </a>
+                    <a href="events/events.html?action=create" class="action-card" role="listitem">
+                        <div class="action-icon">
+                            <i class="fas fa-calendar-plus" aria-hidden="true"></i>
+                        </div>
+                        <div class="action-content">
+                            <h3>Create Event</h3>
+                            <p>Organize a tech meetup or conference</p>
+                        </div>
+                    </a>
+                    <a href="chat/chat.html" class="action-card" role="listitem">
+                        <div class="action-icon">
+                            <i class="fas fa-comments" aria-hidden="true"></i>
+                        </div>
+                        <div class="action-content">
+                            <h3>Start Chat</h3>
+                            <p>Connect with the community</p>
+                        </div>
+                    </a>
+                    <a href="freelancing/gigs.html" class="action-card" role="listitem">
+                        <div class="action-icon">
+                            <i class="fas fa-search" aria-hidden="true"></i>
+                        </div>
+                        <div class="action-content">
+                            <h3>Find Gigs</h3>
+                            <p>Discover opportunities that match your skills</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- AI Recommendations -->
+            <section class="recommendations" aria-labelledby="recommendations-title">
+                <h2 id="recommendations-title">
+                    <i class="fas fa-brain" aria-hidden="true"></i>
+                    Recommended for You
+                </h2>
+                <div class="recommendations-container">
+                    <div class="recommendation-section">
+                        <div class="section-header">
+                            <h3>
+                                <i class="fas fa-briefcase" aria-hidden="true"></i>
+                                Gigs You Might Like
+                            </h3>
+                            <a href="freelancing/gigs.html" class="view-all-link">View All</a>
+                        </div>
+                        <div class="recommendations-list" id="recommendedGigs" role="list"
+                            aria-label="Recommended gigs">
+                            <div class="loading-placeholder" role="status" aria-live="polite" aria-hidden="false">
+                                <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                                <span>Loading recommendations...</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="recommendation-section">
+                        <div class="section-header">
+                            <h3>
+                                <i class="fas fa-calendar" aria-hidden="true"></i>
+                                Events for You
+                            </h3>
+                            <a href="events/events.html" class="view-all-link">View All</a>
+                        </div>
+                        <div class="recommendations-list" id="recommendedEvents" role="list"
+                            aria-label="Recommended events">
+                            <div class="loading-placeholder" role="status" aria-live="polite" aria-hidden="false">
+                                <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                                <span>Loading recommendations...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Activity -->
+            <section class="recent-activity" aria-labelledby="activity-title">
+                <div class="section-header">
+                    <h2 id="activity-title">
+                        <i class="fas fa-clock" aria-hidden="true"></i>
+                        Recent Activity
+                    </h2>
+                    <button class="btn btn-outline btn-sm" onclick="refreshActivity()"
+                        aria-label="Refresh activity feed">
+                        <i class="fas fa-refresh" aria-hidden="true"></i>
+                        Refresh
+                    </button>
+                </div>
+                <div class="activity-feed" id="activityFeed" role="feed" aria-label="Recent activity feed">
+                    <div class="loading-placeholder" role="status" aria-live="polite" aria-hidden="false">
+                        <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                        <span>Loading activity...</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Badges & Achievements -->
+            <section class="achievements" aria-labelledby="achievements-title">
+                <div class="section-header">
+                    <h2 id="achievements-title">
+                        <i class="fas fa-trophy" aria-hidden="true"></i>
+                        Your Achievements
+                    </h2>
+                    <a href="profile.html#badges" class="view-all-link">View All Badges</a>
+                </div>
+                <div class="badges-container" id="badgesContainer" role="list" aria-label="Your badges">
+                    <div class="loading-placeholder" role="status" aria-live="polite" aria-hidden="false">
+                        <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                        <span>Loading badges...</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Leaderboard Preview -->
+            <section class="leaderboard-preview" aria-labelledby="leaderboard-title">
+                <div class="section-header">
+                    <h2 id="leaderboard-title">
+                        <i class="fas fa-medal" aria-hidden="true"></i>
+                        Community Leaderboard
+                    </h2>
+                    <a href="leaderboard.html" class="view-all-link">View Full Leaderboard</a>
+                </div>
+                <div class="leaderboard-list" id="leaderboardPreview" role="list" aria-label="Top community members">
+                    <div class="loading-placeholder" role="status" aria-live="polite" aria-hidden="false">
+                        <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                        <span>Loading leaderboard...</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Notifications Panel -->
+    <aside class="notifications-panel" id="notificationsPanel" role="complementary" aria-hidden="true">
+        <div class="notifications-header">
+            <h3 id="notifications-title">
+                <i class="fas fa-bell" aria-hidden="true"></i>
+                Notifications
+            </h3>
+            <div class="notifications-actions">
+                <button class="btn btn-sm btn-outline" onclick="markAllNotificationsRead()"
+                    aria-label="Mark all notifications as read">
+                    Mark all read
+                </button>
+                <button class="btn btn-sm btn-ghost" onclick="toggleNotificationsPanel()"
+                    aria-label="Close notifications panel">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+        <div class="notifications-list" id="notificationsList" role="list" aria-label="Notifications list">
+            <div class="loading-placeholder" role="status" aria-live="polite" aria-hidden="false">
+                <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                <span>Loading notifications...</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Success Modal -->
+    <div class="modal success-modal" id="successModal" role="dialog" aria-labelledby="success-title" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-check-circle" aria-hidden="true"></i>
+                <h3 id="success-title">Success!</h3>
+            </div>
+            <div class="modal-body">
+                <p id="successMessage">Action completed successfully!</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeSuccessModal()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay" aria-hidden="true">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+            <span>Loading...</span>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tensorflow/4.10.0/tf.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/gigs.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/recommendations.js"></script>
+</body>
+
+</html>

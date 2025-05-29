@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposals - TechSynergy</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/proposals.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-rocket" aria-hidden="true"></i>
+                <a href="../dashboard.html" style="text-decoration: none; color: inherit;">TechSynergy</a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <div class="search-container">
+                    <input type="text" id="globalSearch" placeholder="Search gigs, events, people..." class="search-input" aria-label="Global search">
+                    <i class="fas fa-search search-icon" aria-hidden="true"></i>
+                    <div class="search-dropdown" id="searchDropdown" role="listbox" aria-label="Search results"></div>
+                </div>
+                <a href="../dashboard.html" class="nav-link">Dashboard</a>
+                <a href="../freelancing/gigs.html" class="nav-link">Gigs</a>
+                <a href="events.html" class="nav-link">Events</a>
+                <a href="../chat.html" class="nav-link">Chat</a>
+                <div class="nav-user" id="nav-user">
+                    <div class="user-avatar" id="user-avatar" tabindex="0" aria-label="User menu">
+                        <i class="fas fa-user" aria-hidden="true"></i>
+                    </div>
+                    <div class="user-dropdown" id="user-dropdown" role="menu">
+                        <a href="../profile.html" role="menuitem">Profile</a>
+                        <a href="../freelancing/proposals.html" role="menuitem">Proposals</a>
+                        <a href="../index.html" role="menuitem">Logout</a>
+                    </div>
+                </div>
+            </div>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+            
+                
+                <!-- User Menu -->
+                
+
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="proposals-page">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="proposals-header">
+                <div class="header-content">
+                    <h1>
+                        <i class="fas fa-file-contract"></i>
+                        Proposals Management
+                    </h1>
+                    <p>Manage your sent proposals and review received applications</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-outline" onclick="refreshProposals()">
+                        <i class="fas fa-sync-alt"></i>
+                        Refresh
+                    </button>
+                </div>
+                
+            </div>
+
+            <!-- Proposals Tabs -->
+            <div class="proposals-tabs">
+                <button class="tab-btn active" onclick="switchTab('received')" id="receivedTab">
+                    <i class="fas fa-inbox"></i>
+                    Received Proposals
+                    <span class="tab-count" id="receivedCount">0</span>
+                </button>
+                <button class="tab-btn" onclick="switchTab('sent')" id="sentTab">
+                    <i class="fas fa-paper-plane"></i>
+                    Sent Proposals
+                    <span class="tab-count" id="sentCount">0</span>
+                </button>
+            </div>
+
+            <!-- Filters and Controls -->
+            <div class="proposals-controls">
+                <div class="controls-left">
+                    <div class="filter-group">
+                        <label for="statusFilter">Status:</label>
+                        <select id="statusFilter" onchange="applyFilters()">
+                            <option value="">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="accepted">Accepted</option>
+                            <option value="rejected">Rejected</option>
+                            <option value="withdrawn">Withdrawn</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="sortBy">Sort by:</label>
+                        <select id="sortBy" onchange="applyFilters()">
+                            <option value="date_desc">Latest First</option>
+                            <option value="date_asc">Oldest First</option>
+                            <option value="budget_desc">Highest Budget</option>
+                            <option value="budget_asc">Lowest Budget</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="controls-right">
+                    <button class="btn btn-outline" onclick="exportProposals()">
+                        <i class="fas fa-download"></i>
+                        Export
+                    </button>
+                </div>
+            </div>
+
+            <!-- Proposals Content -->
+            <div class="proposals-content">
+                <!-- Received Proposals Tab -->
+                <div id="receivedProposals" class="tab-content active">
+                    <div class="proposals-list" id="receivedProposalsList">
+                        <!-- Loading state -->
+                        <div class="loading-state" id="receivedLoading">
+                            <div class="spinner"></div>
+                            <p>Loading received proposals...</p>
+                        </div>
+                        
+                        <!-- Empty state -->
+                        <div class="empty-state" id="receivedEmpty" style="display: none;">
+                            <i class="fas fa-inbox"></i>
+                            <h3>No Proposals Yet</h3>
+                            <p>You haven't received any proposals for your gigs yet.</p>
+                            <a href="../freelancing/gigs.html" class="btn btn-primary">
+                                <i class="fas fa-plus"></i>
+                                Post a Gig
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sent Proposals Tab -->
+                <div id="sentProposals" class="tab-content">
+                    <div class="proposals-list" id="sentProposalsList">
+                        <!-- Loading state -->
+                        <div class="loading-state" id="sentLoading">
+                            <div class="spinner"></div>
+                            <p>Loading sent proposals...</p>
+                        </div>
+                        
+                        <!-- Empty state -->
+                        <div class="empty-state" id="sentEmpty" style="display: none;">
+                            <i class="fas fa-paper-plane"></i>
+                            <h3>No Proposals Sent</h3>
+                            <p>You haven't sent any proposals yet.</p>
+                            <a href="../freelancing/gigs.html" class="btn btn-primary">
+                                <i class="fas fa-search"></i>
+                                Browse Gigs
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination-container" id="paginationContainer" style="display: none;">
+                <div class="pagination" id="pagination">
+                    <!-- Pagination buttons will be generated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Proposal Detail Modal -->
+    <div class="modal" id="proposalModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Proposal Details</h2>
+                <button class="modal-close" onclick="closeModal('proposalModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Proposal details will be loaded here -->
+            </div>
+            <div class="modal-footer" id="modalFooter">
+                <!-- Action buttons will be added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Accept Proposal Modal -->
+    <div class="modal" id="acceptModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Accept Proposal</h2>
+                <button class="modal-close" onclick="closeModal('acceptModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="accept-form">
+                    <div class="form-group">
+                        <label for="acceptMessage">Message to Freelancer:</label>
+                        <textarea id="acceptMessage" placeholder="Congratulations! Your proposal has been accepted..." rows="4"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectDeadline">Project Deadline:</label>
+                        <input type="date" id="projectDeadline" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="milestones">Milestones (Optional):</label>
+                        <div id="milestonesContainer">
+                            <div class="milestone-item">
+                                <input type="text" placeholder="Milestone description" class="milestone-desc">
+                                <input type="date" class="milestone-date">
+                                <input type="number" placeholder="Amount" class="milestone-amount">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-outline btn-sm" onclick="addMilestone()">
+                            <i class="fas fa-plus"></i> Add Milestone
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('acceptModal')">Cancel</button>
+                <button class="btn btn-success" onclick="confirmAcceptProposal()">
+                    <i class="fas fa-check"></i>
+                    Accept Proposal
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reject Proposal Modal -->
+    <div class="modal" id="rejectModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Reject Proposal</h2>
+                <button class="modal-close" onclick="closeModal('rejectModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="reject-form">
+                    <div class="form-group">
+                        <label for="rejectReason">Reason for Rejection:</label>
+                        <select id="rejectReason" required>
+                            <option value="">Select a reason</option>
+                            <option value="budget">Budget concerns</option>
+                            <option value="experience">Insufficient experience</option>
+                            <option value="timeline">Timeline doesn't match</option>
+                            <option value="skills">Skills mismatch</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="rejectMessage">Message to Freelancer (Optional):</label>
+                        <textarea id="rejectMessage" placeholder="Thank you for your interest. Unfortunately..." rows="4"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('rejectModal')">Cancel</button>
+                <button class="btn btn-danger" onclick="confirmRejectProposal()">
+                    <i class="fas fa-times"></i>
+                    Reject Proposal
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div class="toast success" id="successToast">
+        <i class="fas fa-check-circle"></i>
+        <span id="successMessage">Action completed successfully!</span>
+    </div>
+
+    <!-- Error Toast -->
+    <div class="toast error" id="errorToast">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="errorMessage">An error occurred!</span>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/app.js"></script>
+    <script src="../js/proposals.js"></script>
+    
+    <script>
+        // Initialize proposals page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof ProposalManager !== 'undefined') {
+                window.proposalManager = new ProposalManager();
+            }
+        });
+    </script>
+</body>
+</html>

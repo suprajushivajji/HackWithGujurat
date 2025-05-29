@@ -1,0 +1,296 @@
+<!-- events/events.html - Events Listing Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - TechSynergy</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/events.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="events-page">
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-rocket" aria-hidden="true"></i>
+                <a href="../dashboard.html" style="text-decoration: none; color: inherit;">TechSynergy</a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <div class="search-container">
+                    <input type="text" id="globalSearch" placeholder="Search gigs, events, people..." class="search-input" aria-label="Global search">
+                    <i class="fas fa-search search-icon" aria-hidden="true"></i>
+                </div>
+                <a href="../dashboard.html" class="nav-link">Dashboard</a>
+                <a href="../freelancing/gigs.html" class="nav-link">Gigs</a>
+                <a href="../events/events.html" class="nav-link active">Events</a>
+                <a href="../chat.html" class="nav-link">Chat</a>
+                <div class="nav-user" id="nav-user">
+                    <div class="user-avatar" id="user-avatar" tabindex="0" aria-label="User menu">
+                        <i class="fas fa-user" aria-hidden="true"></i>
+                    </div>
+                    <div class="user-dropdown" id="user-dropdown" role="menu">
+                        <a href="../profile.html" role="menuitem">Profile</a>
+                        <a href="../freelancing/proposals.html" role="menuitem">Proposals</a>
+                        <a href="../index.html" role="menuitem">Logout</a>
+                    </div>
+                </div>
+            </div>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="events-main">
+        <div class="container">
+            <!-- Header -->
+            <section class="events-header">
+                <div class="header-content">
+                    <h1><i class="fas fa-calendar-alt" aria-hidden="true"></i> Tech Events</h1>
+                    <p>Discover and join amazing tech events or create your own</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="showCreateEventModal()">
+                        <i class="fas fa-plus" aria-hidden="true"></i>
+                        <span>Create Event</span>
+                    </button>
+                    <button class="btn btn-outline" onclick="toggleMyEvents()" id="myEventsBtn">
+                        <i class="fas fa-user" aria-hidden="true"></i>
+                        <span>My Events</span>
+                    </button>
+                    <button class="btn btn-outline" onclick="window.location.href='calendar.html'" id="calendarViewBtn">
+                        <i class="fas fa-calendar" aria-hidden="true"></i>
+                        <span>Calendar View</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Filters -->
+            <section class="filters-section">
+                <div class="filters-container">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label for="categoryFilter">Category</label>
+                            <select id="categoryFilter" onchange="applyFilters()" class="filter-select">
+                                <option value="">All Categories</option>
+                                <option value="conference">Conference</option>
+                                <option value="workshop">Workshop</option>
+                                <option value="meetup">Meetup</option>
+                                <option value="hackathon">Hackathon</option>
+                                <option value="webinar">Webinar</option>
+                                <option value="networking">Networking</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="dateFilter">Date Range</label>
+                            <select id="dateFilter" onchange="applyFilters()" class="filter-select">
+                                <option value="">All Dates</option>
+                                <option value="today">Today</option>
+                                <option value="tomorrow">Tomorrow</option>
+                                <option value="this-week">This Week</option>
+                                <option value="next-week">Next Week</option>
+                                <option value="this-month">This Month</option>
+                                <option value="next-month">Next Month</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="locationFilter">Location</label>
+                            <input type="text" id="locationFilter" placeholder="City, Country" onchange="applyFilters()" class="filter-input">
+                        </div>
+                        <div class="filter-group">
+                            <label for="searchFilter">Search</label>
+                            <input type="text" id="searchFilter" placeholder="Search events..." onkeyup="debounceSearch()" class="filter-input search-input">
+                        </div>
+                    </div>
+                    <div class="filter-actions">
+                        <button class="btn btn-outline btn-sm" onclick="clearFilters()">
+                            <i class="fas fa-times" aria-hidden="true"></i>
+                            Clear Filters
+                        </button>
+                        <div class="sort-options">
+                            <label for="sortBy">Sort by:</label>
+                            <select id="sortBy" onchange="applyFilters()" class="filter-select">
+                                <option value="date-asc">Date (Earliest First)</option>
+                                <option value="date-desc">Date (Latest First)</option>
+                                <option value="popular">Most Popular</option>
+                                <option value="newest">Newest Created</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Info -->
+            <section class="results-section">
+                <div class="results-header">
+                    <div class="results-info" id="resultsInfo">
+                        <span id="resultsCount">Loading...</span>
+                    </div>
+                    <div class="view-toggle">
+                        <button class="view-btn active" onclick="toggleView('grid')" id="gridViewBtn" aria-label="Grid view">
+                            <i class="fas fa-th-large" aria-hidden="true"></i>
+                        </button>
+                        <button class="view-btn" onclick="toggleView('list')" id="listViewBtn" aria-label="List view">
+                            <i class="fas fa-list" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Events List -->
+            <section class="events-list">
+                <div class="events-grid" id="eventsGrid">
+                    <div class="loading-placeholder">
+                        <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                        <span>Loading events...</span>
+                    </div>
+                </div>
+                <div class="pagination" id="pagination">
+                    <!-- Pagination will be loaded here -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Create Event Modal -->
+    <div class="modal" id="createEventModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2><i class="fas fa-plus" aria-hidden="true"></i> Create New Event</h2>
+                <button class="modal-close" onclick="hideCreateEventModal()" aria-label="Close modal">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <form class="modal-body" id="createEventForm">
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="eventTitle">Event Title *</label>
+                        <input type="text" id="eventTitle" required placeholder="e.g., React Developers Meetup" class="form-input" maxlength="100">
+                        <small class="form-help">Choose a catchy and descriptive title</small>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="eventDescription">Description *</label>
+                        <textarea id="eventDescription" rows="6" required placeholder="Describe your event... What will attendees learn? Who should attend? What's the agenda?" class="form-textarea"></textarea>
+                        <small class="form-help">Provide details about agenda, speakers, and what attendees can expect</small>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="eventCategory">Category *</label>
+                        <select id="eventCategory" required class="form-select">
+                            <option value="">Select Category</option>
+                            <option value="conference">Conference</option>
+                            <option value="workshop">Workshop</option>
+                            <option value="meetup">Meetup</option>
+                            <option value="hackathon">Hackathon</option>
+                            <option value="webinar">Webinar</option>
+                            <option value="networking">Networking</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDate">Date & Time *</label>
+                        <input type="datetime-local" id="eventDate" required class="form-input">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="eventLocation">Location *</label>
+                        <input type="text" id="eventLocation" required placeholder="e.g., Ahmedabad, Gujarat or Online" class="form-input">
+                        <small class="form-help">Include venue name for in-person events</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventMaxAttendees">Max Attendees</label>
+                        <input type="number" id="eventMaxAttendees" min="1" placeholder="50" class="form-input">
+                        <small class="form-help">Leave empty for unlimited</small>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="eventRegistrationLink">Registration Link (Optional)</label>
+                        <input type="url" id="eventRegistrationLink" placeholder="https://..." class="form-input">
+                        <small class="form-help">External registration link (Eventbrite, etc.)</small>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="eventTagInput">Tags</label>
+                        <div class="tags-input">
+                            <input type="text" id="eventTagInput" placeholder="Type a tag and press Enter" class="form-input">
+                            <div class="tags-container" id="eventTags"></div>
+                        </div>
+                        <small class="form-help">Add relevant tags to help people find your event</small>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="eventPublic" checked>
+                            <span class="checkmark"></span>
+                            <span>Make this event public</span>
+                        </label>
+                        <small class="form-help">Public events appear in search results</small>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="hideCreateEventModal()">Cancel</button>
+                <button type="submit" form="createEventForm" class="btn btn-primary">
+                    <i class="fas fa-plus" aria-hidden="true"></i>
+                    Create Event
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Details Modal -->
+    <div class="modal" id="eventDetailsModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2 id="eventDetailsTitle">Event Details</h2>
+                <button class="modal-close" onclick="closeEventDetailsModal()" aria-label="Close modal">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="eventDetailsContent">
+                <!-- Event details will be loaded here -->
+            </div>
+            <div class="modal-footer" id="eventDetailsFooter">
+                <!-- Action buttons will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Calendar View Modal -->
+    <div class="modal" id="calendarModal">
+        <div class="modal-content extra-large">
+            <div class="modal-header">
+                <h2><i class="fas fa-calendar" aria-hidden="true"></i> Events Calendar</h2>
+                <button class="modal-close" onclick="hideCalendarModal()" aria-label="Close modal">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="calendar-container" id="calendarContainer">
+                    <!-- Calendar will be rendered here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/events.js"></script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!-- index.html - Landing Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechSynergy - All-in-One Tech Collaboration Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-rocket" aria-hidden="true"></i>
+                <span>TechSynergy</span>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#about" class="nav-link">About</a>
+                <div class="nav-auth" id="nav-auth">
+                    <a href="login.html" class="btn btn-outline">Login</a>
+                    <a href="register.html" class="btn btn-primary">Sign Up</a>
+                </div>
+                
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Connect, Collaborate, Create</h1>
+                <p class="hero-subtitle">Your all-in-one platform for freelancing, events, and community building in the tech world</p>
+                <div class="hero-buttons">
+                    <a href="register.html" class="btn btn-primary btn-large">Get Started</a>
+                    <a href="#features" class="btn btn-outline btn-large">Learn More</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-cards">
+                    <div class="card-float card-gig">
+                        <i class="fas fa-code" aria-hidden="true"></i>
+                        <span>Find Gigs</span>
+                    </div>
+                    <div class="card-float card-event">
+                        <i class="fas fa-calendar" aria-hidden="true"></i>
+                        <span>Join Events</span>
+                    </div>
+                    <div class="card-float card-chat">
+                        <i class="fas fa-comments" aria-hidden="true"></i>
+                        <span>Connect</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <div class="container">
+                <h2 class="section-title">Everything You Need in One Platform</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <h3>Freelancing Hub</h3>
+                        <p>Find and post gigs, submit proposals, and manage projects with AI-powered recommendations</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                        </div>
+                        <h3>Event Management</h3>
+                        <p>Create, discover, and attend tech events with smart filtering and calendar integration</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-users" aria-hidden="true"></i>
+                        </div>
+                        <h3>Community Chat</h3>
+                        <p>Real-time messaging, group chats, and file sharing to build lasting connections</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain" aria-hidden="true"></i>
+                        </div>
+                        <h3>AI Recommendations</h3>
+                        <p>Personalized suggestions for gigs and events based on your skills and interests</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-trophy" aria-hidden="true"></i>
+                        </div>
+                        <h3>Gamification</h3>
+                        <p>Earn badges, climb leaderboards, and track your progress in the tech community</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-search" aria-hidden="true"></i>
+                        </div>
+                        <h3>Global Search</h3>
+                        <p>Find gigs, events, and people across the platform with powerful search capabilities</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2>Built for the Tech Community</h2>
+                        <p>TechSynergy brings together freelancers, event organizers, and tech enthusiasts in one seamless platform. Whether you're looking for your next project, organizing a meetup, or building your network, we've got you covered.</p>
+                        <div class="stats">
+                            <div class="stat">
+                                <span class="stat-number">500+</span>
+                                <span class="stat-label">Active Users</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">1000+</span>
+                                <span class="stat-label">Gigs Posted</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">200+</span>
+                                <span class="stat-label">Events Hosted</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-visual">
+                        <div class="tech-stack">
+                            <div class="tech-item">JavaScript</div>
+                            <div class="tech-item">Node.js</div>
+                            <div class="tech-item">MongoDB</div>
+                            <div class="tech-item">Socket.io</div>
+                            <div class="tech-item">TensorFlow.js</div>
+                            <div class="tech-item">Firebase</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <i class="fas fa-rocket" aria-hidden="true"></i>
+                    <span>TechSynergy</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#privacy">Privacy</a>
+                    <a href="#terms">Terms</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TechSynergy. Built for Hack With Gujarat.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

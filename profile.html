@@ -1,0 +1,346 @@
+<!-- profile.html - User Profile Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - TechSynergy</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="profile-page">
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-rocket" aria-hidden="true"></i>
+                <a href="dashboard.html" style="text-decoration: none; color: inherit;">TechSynergy</a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <div class="search-container">
+                    <input type="text" id="globalSearch" placeholder="Search gigs, events, people..." class="search-input" aria-label="Global search">
+                    <i class="fas fa-search search-icon" aria-hidden="true"></i>
+                </div>
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <a href="freelancing/gigs.html" class="nav-link">Gigs</a>
+                <a href="events/events.html" class="nav-link">Events</a>
+                <a href="chat.html" class="nav-link">Chat</a>
+                <div class="nav-user" id="nav-user">
+                    <div class="user-avatar" id="user-avatar" tabindex="0" aria-label="User menu">
+                        <i class="fas fa-user" aria-hidden="true"></i>
+                    </div>
+                    <div class="user-dropdown" id="user-dropdown" role="menu">
+                        <a href="../profile.html" role="menuitem">Profile</a>
+                        <a href="../freelancing/proposals.html" role="menuitem">Proposals</a>
+                        <a href="../index.html" role="menuitem">Logout</a>
+                    </div>
+                </div>
+            </div>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="profile-main">
+        <div class="container">
+            <!-- Profile Header -->
+            <section class="profile-header">
+                <div class="profile-card">
+                    <div class="profile-cover">
+                        <div class="cover-overlay"></div>
+                    </div>
+                    <div class="profile-content">
+                        <div class="profile-avatar-section">
+                            <div class="avatar-container" id="avatarContainer">
+                                <!-- <img id="profileImage" class="profile-image hidden" alt="Profile picture"> -->
+                                <div class="avatar-placeholder" id="avatarPlaceholder">
+                                    <i class="fas fa-user" aria-hidden="true"></i>
+                                </div>
+                                <button class="avatar-edit-btn" onclick="document.getElementById('profilePicture').click()" aria-label="Change profile picture">
+                                    <i class="fas fa-camera" aria-hidden="true"></i>
+                                </button>
+                                <input type="file" id="profilePicture" accept="image/*" style="display: none;">
+                            </div>
+                        </div>
+                        <div class="profile-info">
+                            <div class="profile-header-content">
+                                <div class="profile-name-section">
+                                    <h1 id="profileName" class="profile-name">Your Name</h1>
+                                    <span class="profile-email" id="profileEmail">Your Email</span>
+                                    <div class="profile-join-date" id="profileJoinDate"></div>
+                                </div>
+                                <div class="profile-actions">
+                                    <button class="btn btn-primary" onclick="toggleEditMode()" id="editProfileBtn">
+                                        <i class="fas fa-edit" aria-hidden="true"></i>
+                                        <span>Edit Profile</span>
+                                    </button>
+                                    <button class="btn btn-outline hidden" onclick="shareProfile()" id="shareProfileBtn">
+                                        <i class="fas fa-share" aria-hidden="true"></i>
+                                        <span>Share</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="profile-stats">
+                                <div class="stat">
+                                    <span class="stat-number" id="profileActivityScore">0</span>
+                                    <span class="stat-label">Activity Score</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-number" id="profileBadges">0</span>
+                                    <span class="stat-label">Badges Earned</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-number" id="profileRank">0</span>
+                                    <span class="stat-label">Leaderboard Rank</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-number" id="profileCompletedGigs">0</span>
+                                    <span class="stat-label">Completed Gigs</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Content -->
+            <div class="profile-content-grid">
+                <!-- Left Column -->
+                <div class="profile-left-column">
+                    <!-- Personal Information -->
+                    <section class="profile-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-user" aria-hidden="true"></i> Personal Information</h2>
+                        </div>
+                        <div class="profile-form" id="personalInfoForm">
+                            <div class="form-group">
+                                <label for="displayName">Full Name</label>
+                                <input type="text" id="displayName" readonly class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" readonly class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label for="bio">Bio</label>
+                                <textarea id="bio" rows="4" placeholder="Tell us about yourself..." readonly class="form-textarea"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="location">Location</label>
+                                <input type="text" id="location" placeholder="City, Country" readonly class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label for="website">Website</label>
+                                <input type="url" id="website" placeholder="https://yourwebsite.com" readonly class="form-input">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Skills -->
+                    <section class="profile-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-code" aria-hidden="true"></i> Skills & Expertise</h2>
+                        </div>
+                        <div class="skills-container">
+                            <div class="skills-display" id="skillsDisplay">
+                                <!-- Skills will be loaded here -->
+                            </div>
+                            <div class="skills-edit hidden" id="skillsEdit">
+                                <div class="skills-input-group">
+                                    <input type="text" id="newSkillInput" placeholder="Add a new skill..." class="form-input">
+                                    <button class="btn btn-primary btn-sm" onclick="addSkill()">
+                                        <i class="fas fa-plus" aria-hidden="true"></i>
+                                        Add
+                                    </button>
+                                </div>
+                                <div class="suggested-skills" id="suggestedSkills">
+                                    <span class="suggested-label">Suggested:</span>
+                                    <!-- Suggested skills will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Contact Information -->
+                    <section class="profile-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-address-book" aria-hidden="true"></i> Contact Information</h2>
+                        </div>
+                        <div class="contact-info" id="contactInfo">
+                            <div class="contact-item">
+                                <i class="fas fa-envelope" aria-hidden="true"></i>
+                                <span id="contactEmail">-</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                                <span id="contactLocation">-</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-globe" aria-hidden="true"></i>
+                                <a href="#" id="contactWebsite" target="_blank">-</a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right Column -->
+                <div class="profile-right-column">
+                    <!-- Portfolio -->
+                    <section class="profile-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-briefcase" aria-hidden="true"></i> Portfolio</h2>
+                        </div>
+                        <div class="portfolio-container" id="portfolioContainer">
+                            <div class="portfolio-display" id="portfolioDisplay">
+                                <!-- Portfolio items will be loaded here -->
+                            </div>
+                            <div class="portfolio-edit hidden" id="portfolioEdit">
+                                <div class="form-group">
+                                    <label for="portfolioDescription">Portfolio Description</label>
+                                    <textarea id="portfolioDescription" rows="3" placeholder="Describe your work and experience..." class="form-textarea"></textarea>
+                                </div>
+                                <div class="projects-section">
+                                    <div class="section-subheader">
+                                        <h3>Projects</h3>
+                                        <button class="btn btn-outline btn-sm" onclick="addProject()">
+                                            <i class="fas fa-plus" aria-hidden="true"></i>
+                                            Add Project
+                                        </button>
+                                    </div>
+                                    <div id="projectsList">
+                                        <!-- Project items will be loaded here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Badges & Achievements -->
+                    <section class="profile-section" id="badges">
+                        <div class="section-header">
+                            <h2><i class="fas fa-trophy" aria-hidden="true"></i> Badges & Achievements</h2>
+                        </div>
+                        <div class="badges-grid" id="profileBadgesGrid">
+                            <!-- Badges will be loaded here -->
+                        </div>
+                    </section>
+
+                    <!-- Activity History -->
+                    <section class="profile-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-history" aria-hidden="true"></i> Activity History</h2>
+                        </div>
+                        <div class="activity-tabs">
+                            <button class="tab-button active" onclick="switchActivityTab('gigs')" data-tab="gigs">
+                                <i class="fas fa-briefcase" aria-hidden="true"></i>
+                                Gigs
+                            </button>
+                            <button class="tab-button" onclick="switchActivityTab('events')" data-tab="events">
+                                <i class="fas fa-calendar" aria-hidden="true"></i>
+                                Events
+                            </button>
+                            <button class="tab-button" onclick="switchActivityTab('proposals')" data-tab="proposals">
+                                <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                                Proposals
+                            </button>
+                        </div>
+                        <div class="activity-content">
+                            <div class="tab-content active" id="gigsTab">
+                                <div class="activity-list" id="userGigsList">
+                                    <div class="loading-placeholder">
+                                        <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                                        <span>Loading gigs...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-content" id="eventsTab">
+                                <div class="activity-list" id="userEventsList">
+                                    <div class="loading-placeholder">
+                                        <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                                        <span>Loading events...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-content" id="proposalsTab">
+                                <div class="activity-list" id="userProposalsList">
+                                    <div class="loading-placeholder">
+                                        <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                                        <span>Loading proposals...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Save Changes Button (Hidden by default) -->
+            <div class="save-actions hidden" id="saveActions">
+                <div class="save-actions-container">
+                    <button class="btn btn-outline" onclick="cancelEdit()">
+                        <i class="fas fa-times" aria-hidden="true"></i>
+                        Cancel
+                    </button>
+                    <button class="btn btn-primary" onclick="saveProfile()">
+                        <i class="fas fa-save" aria-hidden="true"></i>
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Project Modal -->
+    <div class="modal" id="addProjectModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-plus" aria-hidden="true"></i> Add New Project</h3>
+                <button class="modal-close" onclick="closeAddProjectModal()" aria-label="Close modal">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <form class="modal-body" id="addProjectForm">
+                <div class="form-group">
+                    <label for="projectTitle">Project Title</label>
+                    <input type="text" id="projectTitle" required class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="projectDescription">Description</label>
+                    <textarea id="projectDescription" rows="3" required class="form-textarea"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="projectUrl">Project URL (Optional)</label>
+                    <input type="url" id="projectUrl" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="projectTechnologies">Technologies Used</label>
+                    <div class="technologies-input">
+                        <input type="text" id="projectTechInput" placeholder="Type technology and press Enter" class="form-input">
+                        <div class="technologies-tags" id="projectTechTags"></div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeAddProjectModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveProject()">
+                    <i class="fas fa-save" aria-hidden="true"></i>
+                    Save Project
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>
